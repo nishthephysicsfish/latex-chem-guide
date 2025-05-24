@@ -1,0 +1,1320 @@
+\documentclass[12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{mhchem}
+\usepackage{chemfig}
+\usepackage{multicol}
+
+
+\newcommand{\codesymbol}[2]{%
+  \begin{codesymbolbox}
+    \texttt{#1} \hfill \(#2\)
+  \end{codesymbolbox}
+}
+
+\geometry{margin=1in}
+\onehalfspacing
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+
+\title{\LaTeX{}: A Guide for the Curious Chemist}
+\author{Nishtha Tikalal}
+\date{} % This removes the date
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\cleardoublepage
+\thispagestyle{empty}
+\vspace*{\fill}
+
+\begin{center}
+    \textcopyright\ \the\year\ Nishtha Tikalal
+
+    \vspace{1em}
+
+    This work is licensed under the\\
+    \textbf{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.}
+
+    \vspace{1em}
+
+    To view a copy of this license, visit\\
+    \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}
+\end{center}
+
+\vspace*{\fill}
+\cleardoublepage
+\tableofcontents
+
+\mainmatter
+
+\chapter{Why \LaTeX{} for Chemistry?}
+
+\section{What \LaTeX{} Can Do for Chemists}
+
+\LaTeX{} is a typesetting system trusted by scientists, engineers, and publishers for producing technical and scientific documents. For chemists, it offers unparalleled control over:
+
+\begin{itemize}
+    \item \textbf{Chemical Equations:} With the \texttt{mhchem} package, write reactions cleanly: \verb|\ce{CH4 + 2 O2 -> CO2 + 2 H2O}|.
+    \item \textbf{Structural Diagrams:} Use \texttt{chemfig} to draw molecules and mechanisms.
+    \item \textbf{Data Tables and Units:} Integrate with \texttt{siunitx} for consistent formatting of quantities and units.
+    \item \textbf{Professional Layouts:} Reports, theses, and posters with clean typography and logical structure.
+\end{itemize}
+
+\section{Why Not Use Word Processors?}
+
+While Microsoft Word or Google Docs may seem familiar, they have serious limitations:
+
+\begin{itemize}
+    \item Tedious formatting for reactions and diagrams
+    \item Inconsistent styling and broken equation rendering
+    \item Weak version control and collaboration features
+    \item Poor support for citations, referencing, and scientific packages
+\end{itemize}
+
+\LaTeX{} solves these by allowing you to focus on \emph{content}, not formatting. Once learned, it saves time and raises the quality of your work.
+
+\section{Who Should Learn It: Chem Students, Researchers, and Educators}
+
+\LaTeX{} isn’t just for grad students. You’ll benefit from it if you:
+
+\begin{itemize}
+    \item Write lab reports with equations, spectra, or mechanisms
+    \item Submit articles to journals or conferences
+    \item Collaborate on research or review scientific literature
+    \item Teach chemistry and want to share clear, reproducible materials
+\end{itemize}
+
+Even undergraduates can use LaTeX for better grades and clearer thinking.
+
+\section{Tools of the Trade: Overleaf, MiKTeX, TeXstudio}
+
+\subsection*{Overleaf (Recommended for Beginners)}
+\begin{itemize}
+    \item Free, cloud-based LaTeX editor
+    \item Requires no installation
+    \item Real-time collaboration and preview
+    \item Supports \texttt{mhchem}, \texttt{chemfig}, and all major chemistry packages
+\end{itemize}
+\texttt{\url{https://www.overleaf.com}}
+
+\subsection*{Local Installation (for Offline Work)}
+\begin{itemize}
+    \item \textbf{MiKTeX} (Windows), \textbf{MacTeX} (Mac), or \textbf{TeX Live} (Linux)
+    \item Editors: \textbf{TeXstudio}, \textbf{VSCode with LaTeX Workshop}, or \textbf{TeXmaker}
+\end{itemize}
+
+\section{Your First Chemical Document}
+
+Try compiling this in Overleaf:
+
+\begin{verbatim}
+\documentclass{article}
+\usepackage[version=4]{mhchem}
+\begin{document}
+
+A basic chemical reaction:
+
+\[
+\ce{CH4 + 2 O2 -> CO2 + 2 H2O}
+\]
+
+\end{document}
+\end{verbatim}
+
+\begin{center}
+    \ce{CH4 + 2 O2 -> CO2 + 2 H2O}
+\end{center}
+
+\subsection*{ Try This!}
+\begin{itemize}
+    \item Change the reaction to a combustion of ethanol.
+    \item Make it reversible using \verb|<=>|.
+    \item Add states of matter: \verb|(g)|, \verb|(l)|, etc.
+\end{itemize}
+
+\subsection*{ Lab Tip}
+Most journals and safety documents use LaTeX for reproducibility — even safety data sheets (SDS) and chemical databases often export to `.tex` for archiving.
+
+\section*{What’s Next}
+
+Now that you know why LaTeX is worth learning, let’s dive into how to structure chemistry documents in Chapter 2.
+
+\chapter{Document Structure for Chemistry Reports}
+
+\section{Title Pages, Abstracts, and Sectioning}
+
+Chemistry documents — especially lab reports and research papers — follow a predictable structure. Here's a basic outline:
+
+\begin{itemize}
+    \item Title
+    \item Author and Date
+    \item Abstract
+    \item Introduction
+    \item Experimental Section
+    \item Results and Discussion
+    \item Conclusion
+    \item References
+\end{itemize}
+
+You can use `\maketitle` for simple title formatting, or create a custom one for lab reports.
+
+\subsection*{Example:}
+
+\begin{verbatim}
+\documentclass[12pt]{article}
+\usepackage[version=4]{mhchem}
+\title{Synthesis of Aspirin}
+\author{Nishtha Tikalal}
+\date{March 5, 2025}
+\begin{document}
+\maketitle
+\end{verbatim}
+
+Add an abstract:
+
+\begin{verbatim}
+\begin{abstract}
+This experiment demonstrates the synthesis of acetylsalicylic acid (aspirin) from salicylic acid and acetic anhydride.
+\end{abstract}
+\end{verbatim}
+
+\section{Writing Lab Reports and Research Papers}
+
+A good lab report should be reproducible. Use clear headings with
+\begin{verbatim}
+`\section`, `\subsection`, and optionally `\paragraph`.
+\end{verbatim}
+
+\begin{verbatim}
+\section{Introduction}
+Aspirin is widely used as an analgesic...
+
+\section{Experimental}
+\subsection{Materials}
+\subsection{Procedure}
+
+\section{Results and Discussion}
+\subsection{Reaction Equation}
+\subsection{Yield and Purity}
+\end{verbatim}
+
+\subsection*{Chemist’s Best Practices}
+
+\begin{itemize}
+    \item Use consistent section naming: avoid mixing “Methods” and “Procedure”
+    \item Keep units and sig figs accurate (see `siunitx` in Chapter 4)
+    \item Include equations and structures when relevant
+\end{itemize}
+
+\section{Page Setup and Formatting}
+
+For clean margins and readable text:
+
+\begin{verbatim}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{setspace}
+\onehalfspacing
+\end{verbatim}
+
+Turn off indenting if needed:
+
+\begin{verbatim}
+\usepackage{parskip}
+\end{verbatim}
+
+Add page numbers and headers:
+
+\begin{verbatim}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Your Name}
+\fancyhead[R]{Chem 204 Report}
+\fancyfoot[C]{\thepage}
+\end{verbatim}
+
+\section{Best Practices for Scientific Reports}
+
+\begin{itemize}
+    \item \textbf{No first-person:} Write objectively ("The solution was heated...").
+    \item \textbf{Cite sources:} Include references to protocols or journal articles.
+    \item \textbf{Label all equations and figures.}
+    \item \textbf{Use LaTeX environments:} Don’t manually bold or align.
+    \item \textbf{Define commands:} e.g., \verb|\newcommand{\aspirin}{\ce{C9H8O4}}|
+\end{itemize}
+
+\subsection*{Try This!}
+Create a one-page lab summary with the following structure:
+
+\begin{itemize}
+    \item Title + abstract
+    \item Reaction equation using `\ce{}` from `mhchem`
+    \item A table of reagents
+    \item A concluding sentence
+\end{itemize}
+
+\section*{What’s Next}
+
+In Chapter 3, we’ll explore how to write chemical formulas and reactions using `mhchem` — the foundation of chemistry in LaTeX.
+
+\chapter{Chemical Equations and Reactions in \LaTeX{}}
+
+\section{Using the \texttt{mhchem} Package}
+
+Load the package in your preamble:
+
+\begin{verbatim}
+\usepackage[version=4]{mhchem}
+\end{verbatim}
+
+Use the `\ce{}` command to write chemical expressions inside text or equations. It parses the chemical syntax automatically.
+
+\subsection*{Example:}
+
+\begin{verbatim}
+\ce{H2O}, \ce{CO2}, \ce{NaCl}, \ce{H+}
+\end{verbatim}
+
+Which renders as: \ce{H2O}, \ce{CO2}, \ce{NaCl}, \ce{H+}
+
+\section{Writing Chemical Formulas and Reactions}
+
+Use `\ce{}` for both individual molecules and full equations:
+
+\begin{verbatim}
+\ce{CH4 + 2 O2 -> CO2 + 2 H2O}
+\end{verbatim}
+
+\[
+\ce{CH4 + 2 O2 -> CO2 + 2 H2O}
+\]
+
+\subsection*{Reversible Reactions}
+
+\begin{verbatim}
+\ce{CO2 + H2O <=> H2CO3}
+\end{verbatim}
+
+\[
+\ce{CO2 + H2O <=> H2CO3}
+\]
+
+\section{Isotopes, Charges, and States of Matter}
+
+\subsection*{Isotopes:}
+
+\begin{verbatim}
+\ce{^{14}C}, \ce{^{18}O}, \ce{_{3}^{7}Li+}
+\end{verbatim}
+
+\ce{^{14}C}, \ce{^{18}O}, \ce{_{3}^{7}Li+}
+
+\subsection*{Charges:}
+
+\begin{verbatim}
+\ce{Na+}, \ce{SO4^2-}, \ce{NH4+}
+\end{verbatim}
+
+\ce{Na+}, \ce{SO4^2-}, \ce{NH4+}
+
+\subsection*{States of Matter:}
+
+\begin{verbatim}
+\ce{H2O(l)}, \ce{O2(g)}, \ce{NaCl(s)}
+\end{verbatim}
+
+\ce{H2O(l)}, \ce{O2(g)}, \ce{NaCl(s)}
+
+\section{Arrows and Reaction Conditions}
+
+\subsection*{Arrows:}
+
+\begin{itemize}
+    \item \verb|->| → irreversible reaction
+    \item \verb|<=>| → equilibrium
+    \item \verb|<-| → reverse reaction
+\end{itemize}
+
+\subsection*{Conditions:}
+
+\begin{verbatim}
+\ce{N2 + 3 H2 ->[Fe catalyst] 2 NH3}
+\end{verbatim}
+
+\[
+\ce{N2 + 3 H2 ->[Fe catalyst] 2 NH3}
+\]
+
+\subsection*{Temperature/Pressure:}
+
+\begin{verbatim}
+\ce{C + O2 ->[\Delta] CO2}
+\ce{2 H2O2 ->[MnO2][heat] 2 H2O + O2}
+\end{verbatim}
+
+\[
+\ce{2 H2O2 ->[MnO2][heat] 2 H2O + O2}
+\]
+
+\section{Practice Examples and Common Mistakes}
+
+\begin{itemize}
+    \item  \verb|\ce{Ag+ + Cl- -> AgCl(v)}|
+    \item  \verb|\ce{Ag+ + Cl- --> AgCl}| ← Do not use `-->`
+    \item  \verb|\ce{H2SO4 + 2 NaOH -> Na2SO4 + 2 H2O}|
+\end{itemize}
+
+\subsection*{Try This!}
+\begin{itemize}
+    \item Write a neutralization reaction with charges and states.
+    \item Convert a combustion equation to include \verb|\Delta|.
+    \item Include a reversible reaction with a catalyst above the arrow.
+\end{itemize}
+
+\subsection*{Lab Tip}
+Using \verb|\ce{}| ensures your equations follow journal conventions. Most chemistry journals now support `mhchem`-style syntax for reaction schemes and balances.
+
+\section*{What’s Next}
+
+Now that you can typeset chemical reactions, Chapter 4 will show how to present experimental data using tables, units, and significant figures.
+
+\chapter{Tables and Data Presentation}
+
+\section{The \texttt{tabular} Environment for Data Tables}
+
+Tables are essential for reporting yields, melting points, masses, concentrations, and spectral data. The `tabular` environment gives precise control.
+
+\subsection*{Example:}
+
+\begin{verbatim}
+\begin{tabular}{|l|c|r|}
+\hline
+Compound & Mass (g) & Yield (\%) \\
+\hline
+Aspirin & 2.50 & 85 \\
+Acetanilide & 1.20 & 60 \\
+\hline
+\end{tabular}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{|l|c|r|}
+\hline
+Compound & Mass (g) & Yield (\%) \\
+\hline
+Aspirin & 2.50 & 85 \\
+Acetanilide & 1.20 & 60 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Long Tables and Multirow/Multicolumn Cells}
+
+Use `longtable`, `multirow`, and `multicol` for more complex layouts, especially for inventories or spectral tables.
+
+\subsection*{Example:}
+
+\begin{verbatim}
+\usepackage{multirow}
+...
+\begin{tabular}{|l|c|c|}
+\hline
+\multirow{2}{*}{Compound} & \multicolumn{2}{c|}{IR (cm\textsuperscript{-1})} \\
+\cline{2-3}
+& Stretch A & Stretch B \\
+\hline
+Benzene & 1600 & 1500 \\
+\hline
+\end{tabular}
+\end{verbatim}
+
+\section{Units and Significant Figures with \texttt{siunitx}}
+
+`\texttt{siunitx}` helps ensure consistent formatting of quantities, units, and sig figs.
+
+\subsection*{Setup:}
+\begin{verbatim}
+\usepackage{siunitx}
+\sisetup{round-mode=places, round-precision=2}
+\end{verbatim}
+
+\subsection*{Examples:}
+
+\begin{itemize}
+    \item \verb|\SI{1.23}{\gram}| → \SI{1.23}{\gram}
+    \item \verb|\SI{0.045}{\milli\liter}| → \SI{0.045}{\milli\liter}
+    \item \verb|\SI{273.15}{\kelvin}| → \SI{273.15}{\kelvin}
+\end{itemize}
+
+\section{Chemical Inventory and Safety Tables}
+
+You can format safety and inventory sheets using clear, aligned tables:
+
+\begin{center}
+\begin{tabular}{|l|c|c|l|}
+\hline
+Chemical & Amount & Hazard & PPE Required \\
+\hline
+\ce{H2SO4} & \SI{25}{\milli\liter} & Corrosive & Gloves, goggles \\
+\ce{NaOH}  & \SI{2.5}{\gram} & Irritant & Gloves \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Try This!}
+
+\begin{itemize}
+    \item Create a reagent list with chemical name, formula (using `\ce{}`), and mass (using `\SI{}`).
+    \item Format a spectral table with multicolumn headers.
+    \item Use `longtable` to split tables across pages.
+\end{itemize}
+
+\section*{Lab Tip}
+
+Most lab report errors come from inconsistent units and sig figs. Use `siunitx` for all values — even in captions or inline text — to avoid mistakes.
+
+\section*{What’s Next}
+
+In Chapter 5, you’ll learn how to draw molecular structures, mechanisms, and organic reaction schemes using `chemfig` — a visual upgrade to your chemistry typesetting.
+
+\chapter{Structural Diagrams and Schemes}
+
+\section{Introduction to the \texttt{chemfig} Package}
+
+\texttt{chemfig} lets you draw molecules and reaction mechanisms using LaTeX code. Load it in your preamble:
+
+\begin{verbatim}
+\usepackage{chemfig}
+\end{verbatim}
+
+\subsection*{Basic Syntax:}
+
+\begin{verbatim}
+\chemfig{CH_3-CH_2-OH}
+\end{verbatim}
+
+\chemfig{CH_3-CH_2-OH}
+
+Use underscores \verb|_| for subscripted atoms, dashes \verb|-| for bonds, and parentheses for branching.
+
+\section{Drawing Simple Molecules}
+
+\subsection*{Examples:}
+
+\begin{verbatim}
+\chemfig{H-C(-[2]H)(-[6]H)-C(-[2]H)(-[6]H)-OH}  % Ethanol
+\end{verbatim}
+
+\chemfig{H-C(-[2]H)(-[6]H)-C(-[2]H)(-[6]H)-OH}
+
+\begin{verbatim}
+\chemfig{CH_3-CH(-OH)-COOH}  % Lactic Acid
+\end{verbatim}
+
+\chemfig{CH_3-CH(-OH)-COOH}
+
+\section{Creating Reaction Mechanisms}
+
+Use arrows to show mechanisms or synthetic steps:
+
+\begin{verbatim}
+\schemestart
+\chemfig{CH_3-CH=CH_2}
+\arrow{->[\ce{Br2}]}
+\chemfig{CH_3-CHBr-CH_2Br}
+\schemestop
+\end{verbatim}
+
+\schemestart
+\chemfig{CH_3-CH=CH_2}
+\arrow{->[\ce{Br2}]}
+\chemfig{CH_3-CHBr-CH_2Br}
+\schemestop
+
+You can also chain multi-step syntheses with \verb|\arrow{->}|
+
+\section{Organic Reaction Schemes}
+
+Use nodes and multiple reactions:
+
+\begin{verbatim}
+\schemestart
+\chemfig{Ph-OH}
+\arrow{->[\ce{CH3I}][\ce{NaOH}]}
+\chemfig{Ph-OCH3}
+\arrow{->[\ce{HBr}]}
+\chemfig{Ph-OH}
+\schemestop
+\end{verbatim}
+
+\schemestart
+\chemfig{Ph-OH}
+\arrow{->[\ce{CH3I}][\ce{NaOH}]}
+\chemfig{Ph-OCH3}
+\arrow{->[\ce{HBr}]}
+\chemfig{Ph-OH}
+\schemestop
+
+\section{Combining \texttt{chemfig} and \texttt{mhchem}}
+
+You can annotate structures with reactions and conditions:
+
+\begin{verbatim}
+\chemfig{CH_3-C(=O)-OH} + \ce{NaOH -> CH3COONa + H2O}
+\end{verbatim}
+
+\chemfig{CH_3-C(=O)-OH} + \ce{NaOH -> CH3COONa + H2O}
+
+\section*{Try This!}
+
+\begin{itemize}
+    \item Draw acetic acid, aspirin, and ethanol.
+    \item Create a two-step esterification reaction with arrows.
+    \item Add curved arrows or lone pairs (see `chemmacros` for advanced visuals).
+\end{itemize}
+
+\section*{Lab Tip}
+
+For complex reactions, break your code into macros or external files and \verb|\input| them. Use Overleaf's TikZ preview feature if needed.
+
+\section*{What’s Next}
+
+Now that you can draw molecules and reactions, Chapter 6 introduces how to typeset spectral and analytical chemistry data (NMR, IR, MS) using clean, consistent LaTeX layouts.
+
+
+
+\chapter{Spectroscopy and Analytical Data}
+
+\section{NMR Notation and Formatting}
+
+To typeset \textsuperscript{1}H or \textsuperscript{13}C NMR data, use math mode or `mhchem` for clarity:
+
+\begin{verbatim}
+\ce{^{1}H NMR} (400 MHz, CDCl3) \delta 7.26 (d, J = 8.0 Hz, 2H), ...
+\end{verbatim}
+
+\ce{^{1}H NMR} (400 MHz, CDCl3) $\delta$ 7.26 (d, J = 8.0 Hz, 2H)
+
+For delta values, always use math mode: \verb|$\delta$ 7.26|
+
+\subsection*{Inline Format:}
+
+\begin{verbatim}
+\ce{^{13}C NMR} (100 MHz, DMSO-d6) $\delta$ 167.2, 132.5, 128.9
+\end{verbatim}
+
+\section{Infrared (IR) Spectra}
+
+Use \texttt{siunitx} for wavenumbers and notation:
+
+\begin{verbatim}
+\ce{IR} (film): \SI{1715}{\per\centi\meter}, \SI{1600}{\per\centi\meter} (C=O, C=C)
+\end{verbatim}
+
+\ce{IR} (film): \SI{1715}{\per\centi\meter}, \SI{1600}{\per\centi\meter} (C=O, C=C)
+
+\section{Mass Spectrometry (MS)}
+
+Typical MS data includes m/z and ion identification:
+
+\begin{verbatim}
+MS (ESI): m/z 303 [M+H]+, 325 [M+Na]+
+\end{verbatim}
+
+Use square brackets for fragments and ion notation consistently.
+
+\section{UV-Vis Spectroscopy}
+
+You can include $\lambda_{\max}$ using math mode:
+
+\begin{verbatim}
+UV-Vis (EtOH): $\lambda_{\max}$ = 285 nm, 330 nm
+\end{verbatim}
+
+\section{Sample Descriptions and Integration in Reports}
+
+\begin{itemize}
+    \item Use concise summary tables for analytical data.
+    \item Embed data after compound names in the Experimental section.
+    \item Format consistent with journal standards.
+\end{itemize}
+
+\subsection*{Example Analytical Entry}
+
+\begin{quote}
+\textbf{Compound A.} \ce{^{1}H NMR} (400 MHz, CDCl3) $\delta$ 7.25 (s, 1H), 3.85 (s, 3H). IR (film): \SI{1720}{\per\centi\meter}. HRMS (ESI): m/z 302.1234 [M+H]+.
+\end{quote}
+
+\section{Inline Spectral Assignments}
+
+Use LaTeX math mode or superscripts for clear peak labeling:
+
+\begin{verbatim}
+The singlet at $\delta$ 3.85 was assigned to OCH3 protons.
+\end{verbatim}
+
+\section*{Try This!}
+
+\begin{itemize}
+    \item Write an NMR description with coupling constants and multiplicity.
+    \item Include $\lambda_{\max}$ with proper units.
+    \item Format a brief MS report with exact mass values.
+\end{itemize}
+
+\section*{Lab Tip}
+
+Keep a personal `.tex` macro for compound-specific data. This speeds up writing and ensures consistency across experiments.
+
+\section*{What’s Next}
+
+In Chapter 7, we’ll combine your LaTeX math skills with chemistry — covering thermodynamics, kinetics, and equilibrium equations.
+
+\chapter{Mathematical Chemistry and Equations}
+
+\section{Thermodynamic Equations}
+
+Many thermodynamic relationships involve Greek letters, partial derivatives, and fractions. Use `amsmath` for environments and spacing.
+
+\subsection*{Example: Gibbs Free Energy}
+
+\begin{verbatim}
+\[
+\Delta G = \Delta H - T\Delta S
+\]
+\end{verbatim}
+
+\[
+\Delta G = \Delta H - T\Delta S
+\]
+
+\subsection*{Entropy Change:}
+
+\[
+\Delta S = \int \frac{dq_{\text{rev}}}{T}
+\]
+
+Use subscripts like \verb|q_{\text{rev}}| and integral signs with care.
+
+\section{Kinetics and Rate Laws}
+
+Rate laws are commonly used in chemical kinetics:
+
+\subsection*{First-Order:}
+
+\[
+\frac{d[A]}{dt} = -k[A]
+\]
+
+\subsection*{Integrated:}
+
+\[
+\ln[A] = -kt + \ln[A]_0
+\]
+
+Use brackets for concentrations: \verb|[A]| and natural logs in \verb|\ln| form.
+
+\section{Equilibrium and Constants}
+
+Equilibrium constants are typeset using fractions or brackets:
+
+\[
+K = \frac{[\ce{C}][\ce{D}]}{[\ce{A}][\ce{B}]}
+\]
+
+Combine `mhchem` with math mode:
+
+\begin{verbatim}
+\[
+K = \frac{[\ce{C}][\ce{D}]}{[\ce{A}][\ce{B}]}
+\]
+\end{verbatim}
+
+\section{Using \texttt{amsmath} and \texttt{mathtools}}
+
+Use `align` for multi-step derivations:
+
+\begin{verbatim}
+\begin{align}
+\Delta G &= \Delta G^\circ + RT \ln Q \\
+         &= -RT \ln K \quad \text{at equilibrium}
+\end{align}
+\end{verbatim}
+
+\begin{align}
+\Delta G &= \Delta G^\circ + RT \ln Q \\
+         &= -RT \ln K \quad \text{at equilibrium}
+\end{align}
+
+Use \verb|\text{}| for words inside equations.
+
+\section*{Try This!}
+
+\begin{itemize}
+    \item Write the Nernst equation with all terms and units.
+    \item Derive the integrated rate law using `align`.
+    \item Display $K_p$ and $K_c$ using math and chemistry syntax.
+\end{itemize}
+
+\section*{Lab Tip}
+
+Don't cram equations into paragraphs. Use display math for clarity, and always label your steps in multi-line derivations.
+
+\section*{What’s Next}
+
+In Chapter 8, you’ll learn how to manage references, DOIs, and chemical citations using BibTeX and chemistry-specific bibliography styles.
+
+\chapter{Bibliographies and Referencing for Chemists}
+
+\section{Citing Chemical Journals and Standards}
+
+Chemistry papers follow strict citation formats, often numbered or author-year. You can use either:
+
+\begin{itemize}
+    \item \texttt{biblatex} (modern, flexible)
+    \item \texttt{natbib} (older, still accepted)
+\end{itemize}
+
+\section{Using \texttt{biblatex} for Chemistry}
+
+\begin{verbatim}
+\usepackage[style=numeric, backend=biber]{biblatex}
+\addbibresource{references.bib}
+\end{verbatim}
+
+In your text:
+
+\begin{verbatim}
+\cite{smith2020}
+\end{verbatim}
+
+\section{Sample BibTeX Entry for a Journal Article}
+
+Your `references.bib` might contain:
+
+\begin{verbatim}
+@article{smith2020,
+  author  = {John Smith and Jane Doe},
+  title   = {New Catalysts for Suzuki Coupling},
+  journal = {J. Org. Chem.},
+  year    = {2020},
+  volume  = {85},
+  number  = {2},
+  pages   = {123--130},
+  doi     = {10.1021/acs.joc.0c00123}
+}
+\end{verbatim}
+
+\section{Integration with DOI, Scopus, and PubChem}
+
+You can fetch citation entries using:
+\begin{itemize}
+    \item Google Scholar → Cite → BibTeX
+    \item ChemSpider → Export Citation
+    \item CrossRef → DOI Metadata Search
+\end{itemize}
+
+\section{Chem-Specific Styles: \texttt{achemso}}
+
+To follow ACS formatting guidelines:
+
+\begin{verbatim}
+\usepackage[numbers,super,sort&compress]{natbib}
+\bibliographystyle{achemso}
+\bibliography{refs}
+\end{verbatim}
+
+Produces superscripted references: Smith\textsuperscript{1}
+
+\section*{Try This!}
+
+\begin{itemize}
+    \item Add a journal article and a book to your `.bib` file.
+    \item Cite both in a sample paragraph.
+    \item Test both `biblatex` and `natbib` styles to see formatting differences.
+\end{itemize}
+
+\section*{Lab Tip}
+
+Save DOIs with each reference. Use BibTeX managers (like JabRef or Zotero) to organize sources, especially for large reports or theses.
+
+\section*{What’s Next}
+
+Next, we’ll create scientific presentations and posters with Beamer in Chapter 9 — including molecules, reactions, and animations.
+
+\chapter{Presenting Chemistry with Beamer}
+
+\section{Making Presentations with \texttt{beamer}}
+
+\texttt{beamer} is a LaTeX class that lets you create elegant presentations directly from LaTeX — ideal for research talks, poster previews, or lab group meetings.
+
+\subsection*{Basic Setup:}
+
+\begin{verbatim}
+\documentclass{beamer}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\usetheme{Madrid}
+
+\title{Nitration of Benzene}
+\author{Nishtha Tikalal}
+\date{\today}
+
+\begin{document}
+\frame{\titlepage}
+\end{verbatim}
+
+\section{Highlighting Structures and Reactions}
+
+Use `chemfig` and `mhchem` inside frames just like in articles:
+
+\begin{verbatim}
+\begin{frame}{Reaction Overview}
+\ce{C6H6 + HNO3 ->[\ce{H2SO4}] C6H5NO2 + H2O}
+\end{frame}
+\end{verbatim}
+
+\begin{verbatim}
+\begin{frame}{Mechanism}
+\schemestart
+\chemfig{*6(=-=-=)}  % Benzene
+\arrow{->[\ce{NO2+}]}
+\chemfig{*6(-=-(-NO2)-=-)}
+\schemestop
+\end{frame}
+\end{verbatim}
+
+\section{Blocks and Emphasis}
+
+\texttt{beamer} blocks help organize content:
+
+\begin{verbatim}
+\begin{block}{Experimental Goal}
+To synthesize nitrobenzene via electrophilic aromatic substitution.
+\end{block}
+
+\begin{alertblock}{Safety Note}
+Sulfuric acid is highly corrosive. Wear goggles and gloves.
+\end{alertblock}
+\end{verbatim}
+
+\section{Best Practices for Scientific Posters}
+
+Use the `beamerposter` package for posters. Keep slides clean:
+
+\begin{itemize}
+    \item One idea per slide
+    \item Use bullet points
+    \item Visuals > text
+\end{itemize}
+
+\subsection*{Example Frame Layout:}
+
+\begin{verbatim}
+\begin{frame}{Spectral Data}
+\begin{itemize}
+    \item \ce{^{1}H NMR} (400 MHz): $\delta$ 7.2–8.0
+    \item IR: \SI{1530}{\per\centi\meter} (NO2 stretch)
+    \item MS: m/z 123 [M+H]+
+\end{itemize}
+\end{frame}
+\end{verbatim}
+
+\section*{Try This!}
+
+\begin{itemize}
+    \item Create a 3-slide Beamer presentation: Reaction, Mechanism, Spectra
+    \item Use `pause` to reveal points step by step
+    \item Add a molecule drawing with `chemfig`
+\end{itemize}
+
+\section*{ Lab Tip}
+
+Use `\pause` to reveal steps in a mechanism slowly. Avoid crowded slides — use diagrams instead of blocks of text.
+
+\section*{What’s Next}
+
+In Chapter 10, we’ll show how to collaborate, version-control, and publish your chemistry work using Overleaf, Git, and chemistry-specific archives.
+
+\chapter{Collaborating and Publishing Chem Work}
+
+\section{Writing for Chemistry Journals}
+
+Most chemistry journals — ACS, RSC, Wiley — accept or require LaTeX. Each may supply a class file or template (e.g., \texttt{achemso.cls}).
+
+\begin{itemize}
+    \item \textbf{ACS Journals}: Use \texttt{achemso} package
+    \item \textbf{RSC Journals}: Some use modified \texttt{article}
+    \item \textbf{Elsevier}: Use \texttt{elsarticle}
+\end{itemize}
+
+\section{Working with Co-authors and Overleaf}
+
+Overleaf allows real-time collaboration:
+
+\begin{itemize}
+    \item Share by email or link (read/write)
+    \item Comment inline and view version history
+    \item Use Git for offline editing (\texttt{git clone https://git.overleaf.com/project})
+\end{itemize}
+
+\subsection*{Best Practices:}
+
+\begin{itemize}
+    \item Agree on file naming and structure early
+    \item Track edits using \verb|\added|, \verb|\deleted| (via \texttt{changes} package)
+    \item Use one `.bib` file for all references
+\end{itemize}
+
+\section{Exporting to ChemRxiv or arXiv}
+
+You can submit to ChemRxiv for preprints. Ensure:
+
+\begin{itemize}
+    \item All files (including images, `.bib`, class files) are included in a ZIP
+    \item Compile with `pdflatex` — avoid custom TikZ styles or unsupported packages
+    \item No missing references or undefined labels
+\end{itemize}
+
+\subsection*{ChemRxiv Submission Checklist:}
+
+\begin{itemize}
+    \item PDF preview compiles correctly
+    \item Abstract is well-formatted
+    \item Author info included in header or metadata
+\end{itemize}
+
+\section{Templates for Reports, Posters, Theses}
+
+\subsection*{Lab Report:}  
+See Chapter 12 for a complete template with abstract, sections, and tables.
+
+\subsection*{Poster Template (with \texttt{beamerposter}):}  
+Ideal for conference presentations — supports columns, headers, and chemistry-specific content.
+
+\subsection*{Thesis Template:}  
+Includes front matter, chapters, bibliography, appendix. Use your university’s LaTeX class if available.
+
+\section*{Try This!}
+
+\begin{itemize}
+    \item Upload your final PDF to ChemRxiv with proper metadata
+    \item Create a private Overleaf project and invite a lab partner
+    \item Clone your Overleaf repo locally and push via Git
+\end{itemize}
+
+\section*{Lab Tip}
+
+For long-term research projects, use a Git-based LaTeX structure with folders for images, data, and `.tex` files. Back up often!
+
+\section*{What’s Next}
+
+In Chapter 11, we summarize the most important commands and symbols in a cheat sheet for quick reference.
+
+\chapter{Chemistry \LaTeX{} Cheat Sheet}
+
+\section*{Quick Commands with \texttt{mhchem}}
+
+\begin{tabular}{ll}
+\verb|\ce{H2O}|         & \ce{H2O} \\
+\verb|\ce{Na+}|         & \ce{Na+} \\
+\verb|\ce{Cl^-}|        & \ce{Cl^-} \\
+\verb|\ce{SO4^{2-}}|    & \ce{SO4^{2-}} \\
+\verb|\ce{H2 + O2 -> H2O}| & \ce{H2 + O2 -> H2O} \\
+\verb|\ce{A <=> B}|     & \ce{A <=> B} \\
+\verb|\ce{CO2(g)}|      & \ce{CO2(g)} \\
+\end{tabular}
+
+\vspace{1em}
+
+\section*{Structural Chemistry with \texttt{chemfig}}
+
+\begin{tabular}{ll}
+\verb|\chemfig{CH_3-CH_2-OH}| & \chemfig{CH_3-CH_2-OH} \\
+\verb|\chemfig{CH_3-C(=O)-OH}| & \chemfig{CH_3-C(=O)-OH} \\
+\verb|\schemestart ... \schemestop| & Reaction mechanisms \\
+\end{tabular}
+
+\vspace{1em}
+
+\section*{Units and Quantities with \texttt{siunitx}}
+
+\begin{tabular}{ll}
+\verb|\SI{1.23}{\gram}|        & \SI{1.23}{\gram} \\
+\verb|\SI{250}{\milli\liter}|  & \SI{250}{\milli\liter} \\
+\verb|\SI{1715}{\per\centi\meter}| & \SI{1715}{\per\centi\meter} \\
+\end{tabular}
+
+\vspace{1em}
+
+\section*{Math & Physical Chemistry Notation}
+
+\begin{tabular}{ll}
+\verb|\Delta G = \Delta H - T\Delta S| & $\Delta G = \Delta H - T\Delta S$ \\
+\verb|\frac{d[A]}{dt} = -k[A]| & $\frac{d[A]}{dt} = -k[A]$ \\
+\verb|K = \frac{[C][D]}{[A][B]}| & $K = \frac{[C][D]}{[A][B]}$ \\
+\verb|\ln[A] = -kt + \ln[A]_0| & $\ln[A] = -kt + \ln[A]_0$ \\
+\end{tabular}
+
+\vspace{1em}
+
+\section*{Referencing and Citation}
+
+\begin{tabular}{ll}
+\verb|\cite{smith2020}| & [1] (with \texttt{biblatex}) \\
+\verb|\textcite{smith2020}| & Smith (2020) \\
+\verb|\printbibliography| & Print bibliography (biblatex) \\
+\end{tabular}
+
+\section*{Other Helpful Environments}
+
+\begin{itemize}
+    \item \texttt{equation}, \texttt{align} — for mathematical layout
+    \item \texttt{tabular}, \texttt{longtable} — for data tables
+    \item \texttt{figure}, \texttt{table} — for captions and labels
+    \item \texttt{block}, \texttt{alertblock} — for slides
+\end{itemize}
+
+\section*{Symbols and Notation}
+
+\begin{tabular}{ll}
+\verb|\Delta| & $\Delta$ \\
+\verb|\lambda_{\max}| & $\lambda_{\max}$ \\
+\verb|\ce{^{13}C}| & \ce{^{13}C} \\
+\verb|\SI{}{}| & Scientific units \\
+\verb|\chemfig{}| & Molecule diagrams \\
+\end{tabular}
+
+\section*{What’s Next}
+
+In the final chapter, Chapter 12, you’ll receive complete templates for lab reports, Beamer slides, and thesis documents — ready for your chemistry coursework or research.
+
+\chapter{Templates for Chemists}
+
+\section{Lab Report Template}
+
+\begin{verbatim}
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{chemfig}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Chem 204}
+\fancyhead[L]{Your Name}
+\fancyfoot[C]{\thepage}
+
+\title{Synthesis of Aspirin}
+\author{Nishtha Tikalal}
+\date{April 2025}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This experiment demonstrates the synthesis of aspirin from salicylic acid and acetic anhydride via esterification. Yield, purity, and spectroscopy are analyzed.
+\end{abstract}
+
+\section{Introduction}
+\ce{C7H6O3 + C4H6O3 -> C9H8O4 + CH3COOH}
+
+\section{Experimental}
+\subsection{Materials}
+\begin{itemize}
+  \item \ce{C7H6O3} (Salicylic Acid)
+  \item \ce{C4H6O3} (Acetic Anhydride)
+  \item \ce{H2SO4} catalyst
+\end{itemize}
+
+\subsection{Procedure}
+Salicylic acid was dissolved in acetic anhydride and heated with a few drops of sulfuric acid...
+
+\section{Results and Discussion}
+\subsection{Yield}
+\SI{2.1}{\gram} of aspirin was obtained (\SI{75}{\percent} yield).
+
+\subsection{Spectroscopy}
+\ce{^{1}H NMR} (400 MHz, CDCl3): $\delta$ 7.25 (m, 5H), 2.35 (s, 3H).  
+IR: \SI{1750}{\per\centi\meter} (C=O stretch)
+
+\section{Conclusion}
+The aspirin synthesis was successful with good yield and purity.
+
+\printbibliography
+\end{document}
+\end{verbatim}
+
+\section{Beamer Slide Template for a Chemistry Presentation}
+
+\begin{verbatim}
+\documentclass{beamer}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\usetheme{Madrid}
+
+\title{Electrophilic Aromatic Substitution}
+\author{Nishtha Tikalal}
+\date{}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Reaction Overview}
+\ce{C6H6 + HNO3 ->[\ce{H2SO4}] C6H5NO2 + H2O}
+\end{frame}
+
+\begin{frame}{Mechanism}
+\schemestart
+\chemfig{*6(=-=-=)}
+\arrow{->[\ce{NO2+}]}
+\chemfig{*6(-=-(-NO2)-=-)}
+\schemestop
+\end{frame}
+
+\end{document}
+\end{verbatim}
+
+\section{Thesis Chapter Template (Sectioned Chemistry Report)}
+
+\begin{verbatim}
+\chapter{Synthesis of Sulfonamides via Electrophilic Aromatic Substitution}
+
+\section{Introduction}
+Sulfonamides are pharmacologically active compounds often synthesized...
+
+\section{Reaction Scheme}
+\schemestart
+\chemfig{C6H5NH2}
+\arrow{->[\ce{SO2Cl2}]}
+\chemfig{C6H5-NH-SO2Cl}
+\schemestop
+
+\section{Experimental Procedure}
+All reagents were used as received. Aminobenzene (5 mmol)...
+
+\section{Analytical Data}
+\ce{^{1}H NMR} (400 MHz): $\delta$ 6.5–7.8 ppm  
+MS (ESI): m/z 215 [M+H]+
+
+\section{Conclusion}
+The sulfonamide was obtained with good yield and confirmed by spectral data.
+\end{verbatim}
+
+\section*{Try This!}
+\begin{itemize}
+    \item Modify the lab template to include a new reaction or reagent.
+    \item Create a slide deck for a real synthesis reaction.
+    \item Use the thesis chapter structure to begin your project or dissertation writing.
+\end{itemize}
+
+\section*{Lab Tip}
+Start each semester by creating personal copies of these templates and customizing them for each course or lab. Keep your `.bib` and `.sty` files reusable across projects.
+
+\section*{What’s Next}
+
+In the final chapter, we share further resources — Overleaf templates, documentation, and community links to help you deepen your LaTeX fluency.
+
+\chapter{Further Resources}
+
+\section{Overleaf Templates for Chemists}
+
+Overleaf hosts a wide collection of chemistry-focused templates:
+
+\begin{itemize}
+    \item ACS journal submission templates: \url{https://www.overleaf.com/latex/templates/acs-publication/jgvcpvchbjty}
+    \item ChemRxiv preprint template
+    \item Thesis templates by university (search for your institution)
+    \item Poster templates using \texttt{beamerposter}
+\end{itemize}
+
+\section{Key Packages and Their Documentation}
+
+\begin{itemize}
+    \item \textbf{mhchem} — chemical formulas and reactions  
+    \url{https://ctan.org/pkg/mhchem}
+    
+    \item \textbf{chemfig} — molecular structures and mechanisms  
+    \url{https://ctan.org/pkg/chemfig}
+
+    \item \textbf{siunitx} — scientific units and numbers  
+    \url{https://ctan.org/pkg/siunitx}
+
+    \item \textbf{biblatex} — bibliography management  
+    \url{https://ctan.org/pkg/biblatex}
+
+    \item \textbf{beamer} — presentation slides  
+    \url{https://ctan.org/pkg/beamer}
+\end{itemize}
+
+\section{Helpful Communities and Forums}
+
+\begin{itemize}
+    \item \textbf{TeX StackExchange}:  
+    \url{https://tex.stackexchange.com/questions/tagged/chemistry}
+    
+    \item \textbf{LaTeX Reddit}:  
+    \url{https://reddit.com/r/LaTeX}
+    
+    \item \textbf{Overleaf Learn Platform}:  
+    \url{https://www.overleaf.com/learn}
+
+    \item \textbf{CTAN (Comprehensive TeX Archive Network)}:  
+    \url{https://ctan.org}
+\end{itemize}
+
+\section{Useful Tools for Chemists}
+
+\begin{itemize}
+    \item \textbf{JabRef} — open-source BibTeX reference manager  
+    \url{https://www.jabref.org/}
+    
+    \item \textbf{BibGuru} — fast online BibTeX generator  
+    \url{https://www.bibguru.com/latex/}
+    
+    \item \textbf{PubChem} → Export citation → BibTeX format  
+    \url{https://pubchem.ncbi.nlm.nih.gov/}
+
+    \item \textbf{Mathpix Snip} — Convert handwritten or image-based chemical expressions to LaTeX  
+    \url{https://mathpix.com}
+\end{itemize}
+
+\section{License and Acknowledgments}
+
+This guide is authored by Nishtha Tikalal.  
+Licensed under the Creative Commons BY-NC-SA 4.0 International License.
+
+\subsection*{With Thanks To:}
+
+\begin{itemize}
+    \item The Overleaf and TeX communities
+    \item Instructors and students who inspired the math and chemistry LaTeX guides
+    \item Open-source developers who maintain the packages this book relies on
+\end{itemize}
+
+\section*{Final Thought}
+
+\begin{quote}
+\textit{“LaTeX isn’t just about writing formulas — it’s about clarity, professionalism, and sharing chemistry with the world.”}
+\end{quote}
+
+
+\end{document}
