@@ -2,7 +2,7 @@
 Comprehensive LaTeX guide for chemistry, covering essential formatting, equations, and document structure.
 Intended as a helpful supplement for undergraduate and research-level chemistry students. 
 
-View the Guide: 
+View the Guide: [Download] (https://github.com/nishthephysicsfish/latex-chem-guide/blob/main/chem-guide_tikalal.pdf)
 
 License
 Creative Commons BY-NC-SA 4.0
